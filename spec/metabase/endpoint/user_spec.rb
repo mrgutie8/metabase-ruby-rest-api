@@ -30,6 +30,15 @@ RSpec.describe Metabase::Endpoint::User do
     end
   end
 
+  describe 'recipients', vcr: true do
+    context 'success' do
+      it 'returns active users' do
+        users = client.recipients
+        expect(users).to be_kind_of(Array)
+      end
+    end
+  end
+
   describe 'invite_user', vcr: true do
     context 'success' do
       it 'invites the user' do
