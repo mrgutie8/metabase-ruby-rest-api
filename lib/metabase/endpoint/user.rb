@@ -32,6 +32,15 @@ module Metabase
         get('/api/user/current', **params)
       end
 
+      # Fetch a list of active users.
+      #
+      # @param params [Hash] Query string
+      # @return [Hash] Parsed response JSON
+      # @see https://github.com/metabase/metabase/blob/master/docs/api/user.md#get-apiuserrecipients
+      def recipients(**params)
+        get('/api/user/recipients', **params)
+      end
+
       def create_user(**params)
         post('/api/user', **params)
       end
