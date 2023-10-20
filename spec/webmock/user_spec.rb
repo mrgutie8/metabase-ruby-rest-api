@@ -27,17 +27,32 @@ RSpec.describe Metabase::Endpoint::User do
     # #################################################################################################################
     it 'Disables a user' do
       body = {
-        'is_active' => "false"
+        'success' => 'true'
       }
 
-      stub_request(:delete, 'http://localhost:3030/api/user/')
+      stub_request(:delete, 'http://localhost:3030/api/user/2?id=2')
         .to_return(status: 200, body: body.to_json)
 
-      user_json = client.delete_user
-      user = JSON.parse(user_json)
+      responce_json = client.delete_user(id: 2)
+      responce = JSON.parse(responce_json)
 
       # Assert the response and test your code's behavior
-      expect(user['is_active']).to eq('false')
+      expect(responce['success']).to eq('true')
+    end
+    # user delete failure case
+    it 'Fails to disable non-existent user' do
+      body = {
+        'success' => 'false'
+      }
+
+      stub_request(:delete, 'http://localhost:3030/api/user/10?id=10')
+        .to_return(status: 200, body: body.to_json)
+
+      responce_json = client.delete_user(id: 10)
+      responce = JSON.parse(responce_json)
+
+      # Assert the response and test your code's behavior
+      expect(responce['success']).to eq('false')
     end
   end
 end
