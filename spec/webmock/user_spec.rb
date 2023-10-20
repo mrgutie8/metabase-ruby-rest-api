@@ -56,7 +56,7 @@ RSpec.describe Metabase::Endpoint::User do
     it 'should return error' do
       message = %r{^PUT http://#{host}/api/user/3/reactivate: 400 - BadRequest}
       expect { client.reactivate(id: 3) }
-        .to raise_error(Metabase::BadRequest, message)
+        .to raise_error(Metabase::BadRequest, message) 
     end
   end
 end
