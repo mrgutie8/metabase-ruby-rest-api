@@ -21,5 +21,23 @@ RSpec.describe Metabase::Endpoint::User do
       # Assert the response and test your code's behavior
       expect(user['email']).to eq('mb@example.com')
     end
+
+    ###################################################################################################################
+    # DELETE USER TEST
+    # #################################################################################################################
+    it 'Disables a user' do
+      body = {
+        'is_active' => "false"
+      }
+
+      stub_request(:delete, 'http://localhost:3030/api/user/')
+        .to_return(status: 200, body: body.to_json)
+
+      user_json = client.delete_user
+      user = JSON.parse(user_json)
+
+      # Assert the response and test your code's behavior
+      expect(user['is_active']).to eq('false')
+    end
   end
 end
