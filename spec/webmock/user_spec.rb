@@ -48,7 +48,7 @@ RSpec.describe Metabase::Endpoint::User do
       users = JSON.parse(user_json)
 
       # Assert the response and test your code's behavior
-      expect(users[0]['email']).to eq('mb@example.com')
+      expect(users.length).to eq(2)
     end
   end
 end
