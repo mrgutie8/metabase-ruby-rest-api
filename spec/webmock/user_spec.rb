@@ -27,6 +27,35 @@ RSpec.describe Metabase::Endpoint::User do
       end
     end
 
+    ###################################################################################################################
+    # GET USER Recipients TEST
+    # #################################################################################################################
+    it 'Fetches user recipients' do
+      body = [
+        {
+          "email" => "mb@example.com",
+          "first_name"=> "Admin",
+          "id"=> 1,
+          "last_name"=> "User"
+        },
+        {
+          "email" => "mb1@example.com",
+          "first_name"=> "Admin1",
+          "id"=> 2,
+          "last_name"=> "User1"
+        }
+      ]
+
+      stub_request(:get, 'http://localhost:3030/api/user/recipients')
+        .to_return(status: 200, body: body.to_json)
+
+      user_json = client.recipients
+      users = JSON.parse(user_json)
+
+      # Assert the response and test your code's behavior
+      expect(users.length).to eq(2)
+    end
+
 
     ###################################################################################################################
     # REACTIVATE USER TEST
