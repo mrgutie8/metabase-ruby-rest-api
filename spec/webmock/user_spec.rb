@@ -64,6 +64,23 @@ RSpec.describe Metabase::Endpoint::User do
     end
 
     ###################################################################################################################
+    # UPDATE USER TEST
+    # #################################################################################################################
+    it 'Updates User' do
+      stub_request(:put, "#{host}/api/user/3")
+        .to_return(status: 200, body: { email: 'test@metabase.com' }.to_json)
+
+      begin
+        user_json = client.update_user(id: 3)
+        user = JSON.parse(user_json)
+
+        expect(user['email']).to eq('test@metabase.com')
+      rescue StandardError
+        expect(WebMock).to have_requested(:put, "#{host}/api/user/3")
+      end
+    end
+
+    ###################################################################################################################
     # DELETE USER TEST
     # #################################################################################################################
     it 'Disables a user' do
