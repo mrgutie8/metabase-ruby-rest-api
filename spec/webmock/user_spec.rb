@@ -9,9 +9,9 @@ RSpec.describe Metabase::Endpoint::User do
     it 'Fetches Current User' do
       body = {
         'email' => 'mb@example.com',
-        'first_name'=> 'Admin',
-        'id'=> 1,
-        'last_name'=> 'User'
+        'first_name' => 'Admin',
+        'id' => 1,
+        'last_name' => 'User'
       }
 
       stub_request(:get, "#{host}/api/user/current")
@@ -117,20 +117,20 @@ RSpec.describe Metabase::Endpoint::User do
       expect(new_user['email']).to eq('jack.smith@email.com')
     end
     # tries to create a user with an existing email
-    it 'Failed to create user with same email' do
-      body = {
-        'email' => 'email address already in use'
-      }
+    context 'Failed to create user with same email' do
+      before do
+        stub_request(:post, "#{host}/api/user")
+          .to_return(status: 400, body: 'BadRequest')
+      end
 
-      stub_request(:post, "#{host}/api/user")
-        .to_return(status: 200, body: body.to_json)
-
-      response_json = client.create_user(first_name: 'Jack', last_name: 'Smith', email: 'jack.smith@email.com',
-                                         user_group_memberships: nil, login_attributes: nil)
-      new_user = JSON.parse(response_json)
-
-      # Assert the response and test your code's behavior
-      expect(new_user['email']).to eq('email address already in use')
+      it 'should return error' do
+        message = %r{^POST http://#{host}/api/user: 400 - BadRequest}
+        expect do
+          client.create_user(first_name: 'Jack', last_name: 'Smith', email: 'jack.smith@email.com',
+                             user_group_memberships: nil, login_attributes: nil)
+        end
+          .to raise_error(Metabase::BadRequest, message)
+      end
     end
   end
 end
