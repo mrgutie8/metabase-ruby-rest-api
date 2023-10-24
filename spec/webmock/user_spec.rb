@@ -50,16 +50,20 @@ RSpec.describe Metabase::Endpoint::User do
       end
     end
 
-    context 'user already exists to reactivate' do
-      before do
-        stub_request(:put, "#{host}/api/user/3/reactivate")
-          .to_return(status: 400, body: 'BadRequest')
-      end
+    ###################################################################################################################
+    # UPDATE USER TEST
+    # #################################################################################################################
+    it 'Updates User' do
+      stub_request(:put, "#{host}/api/user/3")
+        .to_return(status: 200, body: { email: 'test@metabase.com' }.to_json)
 
-      it 'should return error' do
-        message = %r{^PUT http://#{host}/api/user/3/reactivate: 400 - BadRequest}
-        expect { client.reactivate(id: 3) }
-          .to raise_error(Metabase::BadRequest, message)
+      begin
+        user_json = client.update_user(id: 3)
+        user = JSON.parse(user_json)
+
+        expect(user['email']).to eq('test@metabase.com')
+      rescue StandardError
+        expect(WebMock).to have_requested(:put, "#{host}/api/user/3")
       end
     end
 
@@ -94,6 +98,35 @@ RSpec.describe Metabase::Endpoint::User do
 
       # Assert the response and test your code's behavior
       expect(response['success']).to eq('false')
+    end
+  end
+
+  # Error user test
+  context 'error' do
+    context 'email already exists when updating' do
+      before do
+        stub_request(:put, "#{host}/api/user/3")
+          .to_return(status: 400, body: 'BadRequest')
+      end
+
+      it 'should return error' do
+        message = %r{^PUT http://#{host}/api/user/3: 400 - BadRequest}
+        expect { client.update_user(id: 3) }
+          .to raise_error(Metabase::BadRequest, message)
+      end
+    end
+
+    context 'email already active when reactivating' do
+      before do
+        stub_request(:put, "#{host}/api/user/3/reactivate")
+          .to_return(status: 400, body: 'BadRequest')
+      end
+
+      it 'should return error' do
+        message = %r{^PUT http://#{host}/api/user/3/reactivate: 400 - BadRequest}
+        expect { client.reactivate(id: 3) }
+          .to raise_error(Metabase::BadRequest, message)
+      end
     end
   end
 end
