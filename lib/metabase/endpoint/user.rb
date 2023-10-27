@@ -14,6 +14,15 @@ module Metabase
         get('/api/user', **params)
       end
 
+      # Fetch all users. Returns only active users
+      #
+      # @param params [Hash] Query string
+      # @return [Array<Hash>] Parsed response JSON
+      # @see https://github.com/metabase/metabase/blob/master/docs/api/user.md#get-apiuserrecipients
+      def recipients(**params)
+        get('/api/user/recipients', **params)
+      end
+
       # Fetch a User.
       #
       # @param params [Hash] Query string
