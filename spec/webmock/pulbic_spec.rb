@@ -8,7 +8,7 @@ RSpec.describe Metabase::Endpoint::Public do
   let(:host) { 'localhost:3030' }
 
   context 'success' do
-    it 'Logs' do
+    it 'creates public card request' do
 
       stub_request(:get, "#{host}/api/public/card/708a78ec-15c8-405e-b590-de98c6ddfa01")
         .to_return(status: 200, body: 'OK')
