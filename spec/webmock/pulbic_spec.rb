@@ -13,10 +13,7 @@ RSpec.describe Metabase::Endpoint::Public do
       stub_request(:get, "#{host}/api/public/card/708a78ec-15c8-405e-b590-de98c6ddfa01")
         .to_return(status: 200, body: 'OK')
 
-
-      logs_json = client.public_card(card_uuid: '708a78ec-15c8-405e-b590-de98c6ddfa01')
-
-      expect(logs_json).to eq('OK')
+      expect(client.public_card('708a78ec-15c8-405e-b590-de98c6ddfa01')).to eq('OK')
     end
 
   end
