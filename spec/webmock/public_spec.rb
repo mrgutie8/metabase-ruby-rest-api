@@ -32,5 +32,31 @@ RSpec.describe Metabase::Endpoint::Public do
         expect(WebMock).to have_requested(:get, "#{host}/api/public/card/#{card_uuid}/query")
       end
     end
+
+    describe 'query_public_card' do
+      it 'returns query results of the public card' do
+
+        stub_request(:get, "#{host}/api/public/card/#{card_uuid}/query/json")
+          .to_return(status: 200, body: 'OK')
+
+        begin
+          expect(client.query_public_card(card_uuid)).to have_requested(:get, "#{host}/api/public/card/#{card_uuid}/query/json")
+        rescue StandardError
+          expect(WebMock).to have_requested(:get, "#{host}/api/public/card/#{card_uuid}/query/json")
+        end
+      end
+
+      it 'returns query results of the public card as specified format' do
+
+        stub_request(:get, "#{host}/api/public/card/#{card_uuid}/query/csv")
+          .to_return(status: 200, body: 'OK')
+
+        begin
+          expect(client.query_public_card(card_uuid, format: 'csv')).to have_requested(:get, "#{host}/api/public/card/#{card_uuid}/query/csv")
+        rescue StandardError
+          expect(WebMock).to have_requested(:get, "#{host}/api/public/card/#{card_uuid}/query/csv")
+        end
+      end
+    end
   end
 end
