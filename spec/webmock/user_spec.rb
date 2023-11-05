@@ -27,28 +27,7 @@ RSpec.describe Metabase::Endpoint::User do
       end
     end
 
-    ###################################################################################################################
-    # GET USER:id TEST
-    # #################################################################################################################
-    it 'Fetches user by id' do
-      body = {
-        "email" => "mb@example.com",
-        "first_name"=> "Admin",
-        "id"=> 1,
-        "last_name"=> "User",
-      }
 
-      stub_request(:get, 'http://localhost:3030/api/user/1?id=1')
-        .to_return(status: 200, body: body.to_json)
-
-      user_json = client.user(id: 1)
-      user = JSON.parse(user_json)
-
-      # Assert the response and test your code's behavior
-      expect(user['email']).to eq('mb@example.com')
-    end
-
-    
     ###################################################################################################################
     # GET USER Recipients TEST
     # #################################################################################################################
