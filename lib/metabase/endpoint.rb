@@ -2,7 +2,6 @@
 
 require 'metabase/endpoint/activity'
 require 'metabase/endpoint/alert'
-require 'metabase/endpoint/async'
 require 'metabase/endpoint/card'
 require 'metabase/endpoint/collection'
 require 'metabase/endpoint/dashboard'
@@ -20,13 +19,11 @@ require 'metabase/endpoint/setup'
 require 'metabase/endpoint/table'
 require 'metabase/endpoint/user'
 require 'metabase/endpoint/util'
-require 'metabase/endpoint/x_ray'
 
 module Metabase
   module Endpoint
     include Activity
     include Alert
-    include Async
     include Card
     include Collection
     include Dashboard
@@ -44,6 +41,5 @@ module Metabase
     include Table
     include User
     include Util
-    include XRay
   end
 end

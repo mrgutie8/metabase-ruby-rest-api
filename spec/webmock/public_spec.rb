@@ -16,7 +16,7 @@ RSpec.describe Metabase::Endpoint::Public do
 
       expect(client.public_card('708a78ec-15c8-405e-b590-de98c6ddfa01')).to eq('OK')
     end
-
+    
     it 'fetches public card request' do
 
       stub_request(:get, "#{host}/api/public/card/#{card_uuid}")
