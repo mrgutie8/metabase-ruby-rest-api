@@ -55,16 +55,16 @@ RSpec.describe Metabase::Endpoint::User do
     it 'Fetches user recipients' do
       body = [
         {
-          "email" => "mb@example.com",
-          "first_name"=> "Admin",
-          "id"=> 1,
-          "last_name"=> "User"
+          'email' => 'mb@example.com',
+          'first_name' => 'Admin',
+          'id' => 1,
+          'last_name' => 'User'
         },
         {
-          "email" => "mb1@example.com",
-          "first_name"=> "Admin1",
-          "id"=> 2,
-          "last_name"=> "User1"
+          'email' => 'mb1@example.com',
+          'first_name' => 'Admin1',
+          'id' => 2,
+          'last_name' => 'User1'
         }
       ]
 
@@ -194,16 +194,16 @@ RSpec.describe Metabase::Endpoint::User do
     it 'Fetches a list of Users' do
       body = [
         {
-          "email" => "mb@example.com",
-          "first_name"=> "Admin",
-          "id"=> 1,
-          "last_name"=> "User",
+          'email' => 'mb@example.com',
+          'first_name' => 'Admin',
+          'id' => 1,
+          'last_name' => 'User',
         },
         {
-          "email" => "mb1@example.com",
-          "first_name"=> "Admin1",
-          "id"=> 2,
-          "last_name"=> "User1",
+          'email' => 'mb1@example.com',
+          'first_name' => 'Admin1',
+          'id' => 2,
+          'last_name' => 'User1',
         }
       ]
 
