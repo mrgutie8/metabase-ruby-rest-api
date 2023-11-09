@@ -29,8 +29,7 @@ RSpec.describe Metabase::Endpoint::Collection do
       ]
 
       stub_request(:get, "#{host}/api/collection")
-      .to_return(status: 200, body: body.to_json)
-      
+        .to_return(status: 200, body: body.to_json)
 
       begin
         collections_json = client.collections
@@ -41,6 +40,5 @@ RSpec.describe Metabase::Endpoint::Collection do
         expect(WebMock).to have_requested(:put, "#{host}/api/collection")
       end
     end
-
   end
 end
