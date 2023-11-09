@@ -6,7 +6,6 @@ RSpec.describe Metabase::Endpoint::Card do
   let(:host) { 'localhost:3030' }
 
   context 'success' do
-
     it 'Fetches Card detail' do
       body = {
         'id' => 1,
@@ -16,11 +15,9 @@ RSpec.describe Metabase::Endpoint::Card do
         'collection_position' => 1,
         'collection_id' => 1
       }
-        
 
       stub_request(:get, "#{host}/api/card/1")
-      .to_return(status: 200, body: body.to_json)
-      
+        .to_return(status: 200, body: body.to_json)
 
       begin
         card_json = client.card(1)
