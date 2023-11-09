@@ -27,8 +27,7 @@ RSpec.describe Metabase::Endpoint::Card do
       ]
 
       stub_request(:get, "#{host}/api/card")
-      .to_return(status: 200, body: body.to_json)
-      
+        .to_return(status: 200, body: body.to_json)
 
       begin
         cards_json = client.cards
@@ -39,7 +38,5 @@ RSpec.describe Metabase::Endpoint::Card do
         expect(WebMock).to have_requested(:put, "#{host}/api/card")
       end
     end
-
-    
   end
 end
