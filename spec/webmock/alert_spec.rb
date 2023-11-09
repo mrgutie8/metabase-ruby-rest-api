@@ -31,8 +31,7 @@ RSpec.describe Metabase::Endpoint::Alert do
       ]
 
       stub_request(:get, "#{host}/api/alert")
-      .to_return(status: 200, body: body.to_json)
-      
+        .to_return(status: 200, body: body.to_json)
 
       begin
         alerts_json = client.alerts
@@ -43,6 +42,5 @@ RSpec.describe Metabase::Endpoint::Alert do
         expect(WebMock).to have_requested(:put, "#{host}/api/alert")
       end
     end
-
   end
 end
