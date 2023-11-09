@@ -27,8 +27,7 @@ RSpec.describe Metabase::Endpoint::Activity do
       ]
 
       stub_request(:get, "#{host}/api/activity")
-      .to_return(status: 200, body: body.to_json)
-      
+        .to_return(status: 200, body: body.to_json)
 
       begin
         activities_json = client.activities
@@ -39,6 +38,5 @@ RSpec.describe Metabase::Endpoint::Activity do
         expect(WebMock).to have_requested(:put, "#{host}/api/activity")
       end
     end
-
   end
 end
