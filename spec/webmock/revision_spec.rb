@@ -10,7 +10,7 @@ RSpec.describe Metabase::Endpoint::Revision do
   let(:entityId) { '1' }
 
   context 'success' do
-    it 'fetches all segments' do
+    it 'fetches all revisions' do
       stub_request(:get, "#{host}/api/revision")
         .with(body: { entity: entityType.to_s, id: entityId.to_s })
         .to_return(status: 200, body: 'OK')
