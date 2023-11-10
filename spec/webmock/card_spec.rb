@@ -28,5 +28,20 @@ RSpec.describe Metabase::Endpoint::Card do
         expect(WebMock).to have_requested(:put, "#{host}/api/card/1")
       end
     end
+
+    ###################################################################################################################
+    # POST query_card_with_metabase() test
+    ###################################################################################################################
+    it 'Runs the query associated with card' do
+
+      stub_request(:post, "#{host}/api/card/1/query")
+        .to_return(status: 200, body: 'OK')
+
+      begin
+        expect(client.query_card_with_metadata(1)).to eq('OK')
+      rescue StandardError
+        expect(WebMock).to have_requested(:put, "#{host}/api/card/1")
+      end
+    end
   end
 end
