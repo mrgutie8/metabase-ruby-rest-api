@@ -28,7 +28,7 @@ RSpec.describe Metabase::Endpoint::Card do
         expect(WebMock).to have_requested(:put, "#{host}/api/card/1")
       end
     end
-
+    
     ###################################################################################################################
     # POST query_card_with_metabase() test
     ###################################################################################################################
@@ -39,6 +39,29 @@ RSpec.describe Metabase::Endpoint::Card do
 
       begin
         expect(client.query_card_with_metadata(1)).to eq('OK')
+      rescue StandardError
+        expect(WebMock).to have_requested(:put, "#{host}/api/card/1")
+      end
+    end
+    ####################################################################################################################
+    # POST query_card() Test
+    ####################################################################################################################
+    it 'Runs the query associated with a Card and returns results as specified file' do
+
+      stub_request(:post, "#{host}/api/card/1/query/json")
+        .to_return(status: 200, body: 'OK')
+      stub_request(:post, "#{host}/api/card/1/query/csv")
+        .to_return(status: 200, body: 'OK')
+      stub_request(:post, "#{host}/api/card/1/query/api")
+        .to_return(status: 200, body: 'OK')
+      stub_request(:post, "#{host}/api/card/1/query/xlsx")
+        .to_return(status: 200, body: 'OK')
+
+      begin
+        expect(client.query_card(1, format: 'json')).to eq('OK')
+        expect(client.query_card(1, format: 'csv')).to eq('OK')
+        expect(client.query_card(1, format: 'api')).to eq('OK')
+        expect(client.query_card(1, format: 'xlsx')).to eq('OK')
       rescue StandardError
         expect(WebMock).to have_requested(:put, "#{host}/api/card/1")
       end
