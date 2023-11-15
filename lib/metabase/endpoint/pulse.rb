@@ -18,7 +18,7 @@ module Metabase
       # @return Parsed response JSON
       # @see https://github.com/metabase/metabase/blob/master/docs/api-documentation.md#get-apipulse
       def delete_subscription(**params)
-        get("/api/pulse/#{params[:id]}/subscription", **params)
+        delete("/api/pulse/#{params[:id]}/subscription", **params)
       end
     end
   end

@@ -87,7 +87,20 @@ RSpec.describe Metabase::Endpoint::Util do
       expect(pulses).to be_kind_of(Array)
 
     end
+    ####################################################################################################################
+    # pulse delete_subscription() test
+    ####################################################################################################################
+    it 'Unsubscribes user from pulse subscription' do
 
+      stub_request(:delete, "#{host}/api/pulse/1/subscription?id=1")
+        .to_return(status: 200, body: 'OK')
+
+
+      pulse_json = client.delete_subscription(id: 1)
+
+      expect(pulse_json).to eq('OK')
+
+    end
   end
 
 
