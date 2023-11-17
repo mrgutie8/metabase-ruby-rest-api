@@ -11,6 +11,15 @@ module Metabase
       def alerts(**params)
         get('/api/alert', **params)
       end
+
+      # Update an existing alert.
+      #
+      # @param params [Hash] Query string
+      # @return [Hash] Parsed response JSON
+      # @see https://github.com/metabase/metabase/blob/master/docs/api/alert.md#put-apialertid
+      def update_alert(**params)
+        put("/api/alert/#{params[:id]}", **params)
+      end
     end
   end
 end
