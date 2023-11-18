@@ -85,7 +85,34 @@ RSpec.describe Metabase::Endpoint::Util do
       pulses = JSON.parse(pulse_json)
 
       expect(pulses).to be_kind_of(Array)
+    end
 
+    it 'Test sends an unsaved pulse' do
+
+      stub_request(:post, "http://localhost:3030/api/pulse/test").
+         with(
+           body: "{\"name\":\"Jack\",\"cards\":[{\"id\":8,\"include_csv\":\"False\",\"include_xls\":\"False\",\"dashboard_card_id\":15}],\"channels\":[{\"id\":1}]}",
+           headers: {
+       	  'Accept'=>'*/*',
+       	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       	  'Content-Type'=>'application/json',
+       	  'User-Agent'=>'MetabaseRuby/0.5.0 (ruby3.0.2)',
+       	  'X-Metabase-Session'=>'bca8d83e-7d37-4670-81b6-560ac452773e'
+           }).
+         to_return(status: 200, body: "OK", headers: {})
+     
+
+
+
+      pulse_test = client.pulse_test(name: 'Jack', cards: [{
+                                       id: 8,
+                                       include_csv: 'False',
+                                       include_xls: 'False',
+                                       dashboard_card_id: 15
+                                     }],
+                                     channels: [{ id: 1 }])
+
+      expect(pulse_test).to eq('OK')
     end
 
   end
