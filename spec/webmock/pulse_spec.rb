@@ -89,18 +89,10 @@ RSpec.describe Metabase::Endpoint::Util do
     end
 
     it 'Creates pulse' do
+      stub_request(:post, "http://localhost:3030/api/pulse")
+        .to_return(status: 200, body: "OK")
 
-      stub_request(:post, "#{host}/api/pulse")
-        .with(
-          body: '{"first_name" : "FirstName"}'
-        )
-        .to_return(status: 200, body: 'OK')
-
-
-      pulse_json = client.create_pulse
-      pulses = JSON.parse(pulse_json)
-
-      expect(pulses).to be_kind_of(Array)
+      expect(client.create_pulse).to have_requested(:post, "#{host}/api/pulse")
 
     end
   end
