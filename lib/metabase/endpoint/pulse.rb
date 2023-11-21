@@ -11,6 +11,15 @@ module Metabase
       def pulses(**params)
         get('/api/pulse', **params)
       end
+
+      # Update a pulse with id.
+      #
+      # @param params [Hash] Query string
+      # @return Parsed response JSON
+      # @see https://www.metabase.com/docs/latest/api/pulse#put-apipulseid
+      def pulses(**params)
+        put("/api/pulse/#{params[:id]}", **params)
+      end
     end
   end
 end
