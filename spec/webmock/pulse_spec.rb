@@ -88,6 +88,14 @@ RSpec.describe Metabase::Endpoint::Util do
 
     end
 
+    it 'Get form input' do
+
+      stub_request(:get, "#{host}/api/pulse/form_input")
+        .to_return(status: 200, body: 'OK')
+
+      expect(client.form_input).to have_requested(:get, "#{host}/api/pulse/form_input");
+    end
+
   end
 
 
