@@ -11,6 +11,15 @@ module Metabase
       def pulses(**params)
         get('/api/pulse', **params)
       end
+
+      # Get form input
+      #
+      # @param params [Hash] Query string
+      # @return [Array<Hash>] Parsed response JSON
+      # @see https://www.metabase.com/docs/latest/api/pulse#get-apipulseform_input
+      def form_input(**params)
+        get('/api/pulse/form_input', **params)
+      end
     end
   end
 end
