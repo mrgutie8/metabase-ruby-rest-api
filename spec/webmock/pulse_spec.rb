@@ -88,6 +88,30 @@ RSpec.describe Metabase::Endpoint::Util do
 
     end
 
+    ##############################################################################################################################
+    #PUT Pulse Test
+    ##############################################################################################################################
+    it 'Updates a Pulse with id' do
+
+        stub_request(:put, "http://localhost:3030/api/pulse/1").
+         with(
+           body: "{\"id\":1,\"name\":\"Update pulse test\"}",
+           headers: {
+       	  'Accept'=>'*/*',
+       	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       	  'Content-Type'=>'application/json',
+       	  'User-Agent'=>'MetabaseRuby/0.5.0 (ruby3.0.2)',
+       	  'X-Metabase-Session'=>'bca8d83e-7d37-4670-81b6-560ac452773e'
+           }).
+         to_return(status: 200, body: "OK", headers: {})
+
+  
+  
+        expect(client.update_pulse(id: 1, name: "Update pulse test")).to eq('OK')
+  
+      end
+  
+
   end
 
 

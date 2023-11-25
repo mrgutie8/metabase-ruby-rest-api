@@ -17,7 +17,7 @@ module Metabase
       # @param params [Hash] Query string
       # @return Parsed response JSON
       # @see https://www.metabase.com/docs/latest/api/pulse#put-apipulseid
-      def pulses(**params)
+      def update_pulse(**params)
         put("/api/pulse/#{params[:id]}", **params)
       end
     end
