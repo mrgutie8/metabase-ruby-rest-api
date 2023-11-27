@@ -16,7 +16,7 @@ module Metabase
       #
       # @param params [Hash] Query string
       # @return Parsed response JSON
-      # @see https://github.com/metabase/metabase/blob/master/docs/api-documentation.md#get-apipulse
+      # @see https://github.com/metabase/metabase/blob/master/docs/api/pulse.md#delete-apipulseidsubscription
       def delete_subscription(**params)
         delete("/api/pulse/#{params[:id]}/subscription", **params)
       end
