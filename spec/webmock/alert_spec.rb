@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Metabase::Endpoint::Alert do
@@ -40,6 +42,25 @@ RSpec.describe Metabase::Endpoint::Alert do
         expect(alerts.length).to eq(2)
       rescue StandardError
         expect(WebMock).to have_requested(:put, "#{host}/api/alert")
+      end
+    end
+    it 'Unsubscribes user from alert subscription' do
+      stub_request(:delete, 'http://localhost:3030/api/alert/1/subscription?id=1')
+        .with(
+          headers: {
+            'Accept' => '*/*',
+            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent' => 'MetabaseRuby/0.5.0 (ruby3.2.2)',
+            'X-Metabase-Session' => 'bca8d83e-7d37-4670-81b6-560ac452773e'
+          }
+        )
+        .to_return(status: 200, body: 'OK', headers: {})
+
+      begin
+        alert_json = client.delete_alert_subscription(id: 1)
+        expect(alert_json).to eq('OK')
+      rescue StandardError
+        expect(WebMock).to have_requested(:delete, "#{host}/api/alert/1/subscription")
       end
     end
   end
