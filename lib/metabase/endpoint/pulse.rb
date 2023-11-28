@@ -11,6 +11,15 @@ module Metabase
       def pulses(**params)
         get('/api/pulse', **params)
       end
+
+      # Fetch pulse with id.
+      #
+      # @param params [Hash] Query string
+      # @return [Array<Hash>] Parsed response JSON
+      # @see https://github.com/metabase/metabase/blob/master/docs/api/pulse.md#get-apipulseid
+      def pulse(**params)
+        get("/api/pulse/#{params[:id]}")
+      end
     end
   end
 end
