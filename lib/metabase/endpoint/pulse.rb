@@ -12,6 +12,17 @@ module Metabase
         get('/api/pulse', **params)
       end
 
+<<<<<<< HEAD
+      # Test send an unsaved pulse.
+      #
+      # @param params [Hash] Query string
+      # @return Parsed response JSON
+      # @see https://www.metabase.com/docs/latest/api/pulse#post-apipulsetest
+      def pulse_test(**params)
+        post('/api/pulse/test', **params)
+      end
+
+=======
       # Update a pulse with id.
       #
       # @param params [Hash] Query string
@@ -20,6 +31,7 @@ module Metabase
       def update_pulse(**params)
         put("/api/pulse/#{params[:id]}", **params)
       end
+>>>>>>> dev
     end
   end
 end
