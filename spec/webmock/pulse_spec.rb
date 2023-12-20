@@ -86,7 +86,25 @@ RSpec.describe Metabase::Endpoint::Util do
 
       expect(pulses).to be_kind_of(Array)
     end
+    
+    ####################################################################################################################
+    # pulse delete_subscription() test
+    ####################################################################################################################
+    it 'Unsubscribes user from pulse subscription' do
 
+      stub_request(:delete, "#{host}/api/pulse/1/subscription?id=1")
+        .to_return(status: 200, body: 'OK')
+
+
+      pulse_json = client.delete_subscription(id: 1)
+
+      expect(pulse_json).to eq('OK')
+
+    end
+
+    ##############################################################################################################################
+    #PUT Test_Pulse Test
+    ##############################################################################################################################
     it 'Test sends an unsaved pulse' do
 
       stub_request(:post, "http://localhost:3030/api/pulse/test").
@@ -116,7 +134,7 @@ RSpec.describe Metabase::Endpoint::Util do
     end
     
     ##############################################################################################################################
-    #PUT Pulse Test
+    #PUT Pulse Update Test
     ##############################################################################################################################
     it 'Updates a Pulse with id' do
 
