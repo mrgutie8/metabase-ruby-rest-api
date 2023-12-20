@@ -21,6 +21,15 @@ module Metabase
         get("/api/pulse/preview_card_png/#{params[:id]}", **params)
       end
       
+      # Delete a subscription.
+      #
+      # @param params [Hash] Query string
+      # @return Parsed response JSON
+      # @see https://github.com/metabase/metabase/blob/master/docs/api/pulse.md#delete-apipulseidsubscription
+      def delete_subscription(**params)
+        delete("/api/pulse/#{params[:id]}/subscription", **params)
+      end
+
       # Test send an unsaved pulse.
       #
       # @param params [Hash] Query string
@@ -38,6 +47,7 @@ module Metabase
       def update_pulse(**params)
         put("/api/pulse/#{params[:id]}", **params)
       end
+
     end
   end
 end
