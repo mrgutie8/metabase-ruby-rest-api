@@ -38,7 +38,6 @@ module Metabase
       def update_pulse(**params)
         put("/api/pulse/#{params[:id]}", **params)
       end
-
     end
   end
 end
