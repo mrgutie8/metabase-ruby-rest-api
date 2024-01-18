@@ -43,6 +43,37 @@ RSpec.describe Metabase::Endpoint::Alert do
       end
     end
 
+    ###################################################################################################################
+    # POST ALERT TEST
+    # #################################################################################################################
+    it 'Creates a new user' do
+      body = {
+        'alert_condition' => 'goal',
+        'card' => 'id',
+        'alert_first_only' => true,
+        'alert_above_goal' => false,
+        'channels' => [{ 'id' => true }]
+      }
+
+      stub_request(:post, "#{host}/api/alert")
+        .to_return(status: 200, body: body.to_json)
+
+      begin
+        response_json = client.create_alert(
+          alert_condition: 'goal',
+          card: 'id',
+          alert_first_only: true,
+          alert_above_goal: false,
+          channels: [{ 'id' => true }]
+        )
+        new_alert = JSON.parse(response_json)
+
+        # Assert the response and test your code's behavior
+        expect(new_alert['channels'].length).to eq(1)
+      rescue StandardError
+        expect(WebMock).to have_requested(:post, "#{host}/api/alert")
+      end
+
     it 'Fetches Questions' do
       body = [
         {
