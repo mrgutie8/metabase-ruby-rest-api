@@ -44,6 +44,40 @@ RSpec.describe Metabase::Endpoint::Alert do
     end
 
     ###################################################################################################################
+    # PUT ALERT TEST
+    # #################################################################################################################
+    it 'Update a alert with id' do
+      body = {
+        'id' => 1,
+        'alert_condition' => 'goal',
+        'card' => 'id',
+        'alert_first_only' => true,
+        'alert_above_goal' => false,
+        'channels' => [{ 'id' => true }]
+      }
+
+      stub_request(:put, "#{host}/api/alert/1")
+        .to_return(status: 200, body: body.to_json)
+
+      begin
+        response_json = client.update_alert(
+          id: 1,
+          alert_condition: 'goal',
+          card: 'id',
+          alert_first_only: true,
+          alert_above_goal: false,
+          channels: [{ 'id' => true }]
+        )
+        update_alert = JSON.parse(response_json)
+
+        # Assert the response and test your code's behavior
+        expect(update_alert['id']).to eq(1)
+      rescue StandardError
+        expect(WebMock).to have_requested(:put, "#{host}/api/alert")
+      end
+    end
+
+    ###################################################################################################################
     # POST ALERT TEST
     # #################################################################################################################
     it 'Creates a new user' do
