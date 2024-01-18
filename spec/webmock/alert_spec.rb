@@ -73,6 +73,62 @@ RSpec.describe Metabase::Endpoint::Alert do
       rescue StandardError
         expect(WebMock).to have_requested(:post, "#{host}/api/alert")
       end
+
+    it 'Fetches Questions' do
+      body = [
+        {
+          'database_id' => 1,
+          'question_id' => 1,
+          'event' => 'Question 1',
+          'type' => 'native_query',
+          'method' => 'from_scratch',
+          'visualization_type' => 'Test'
+        },
+        {
+          'database_id' => 2,
+          'question_id' => 1,
+          'event' => 'Question 2',
+          'type' => 'native_query',
+          'method' => 'from_scratch',
+          'visualization_type' => 'Test'
+        }
+      ]
+
+      stub_request(:get, "#{host}/api/alert/question/1?id=1")
+        .to_return(status: 200, body: body.to_json)
+
+      begin
+        questions_json = client.questions(id: 1)
+        questions = JSON.parse(questions_json)
+
+        expect(questions.length).to eq(2)
+      rescue StandardError
+        expect(WebMock).to have_requested(:put, "#{host}/api/alert/question/1?id=1")
+      end
+
+    it 'Fetches Alert' do
+      body = {
+        'id' => 1,
+        'name' => 'Alert 1',
+        'collection_position' => 1,
+        'collection_id' => 1,
+        'alert_condition' => 'rows',
+        'alert_first_only' => false,
+        'archived' => false,
+        'can_write' => true
+      }
+
+      stub_request(:get, "#{host}/api/alert/1?id=1")
+        .to_return(status: 200, body: body.to_json)
+
+      begin
+        response_json = client.alert(id: 1)
+        alert = JSON.parse(response_json)
+
+        expect(alert['name']).to eq('Alert 1')
+      rescue StandardError
+        expect(WebMock).to have_requested(:put, "#{host}/api/alert/1?id=1")
+      end
     end
   end
 end
