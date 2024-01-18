@@ -42,5 +42,30 @@ RSpec.describe Metabase::Endpoint::Alert do
         expect(WebMock).to have_requested(:put, "#{host}/api/alert")
       end
     end
+
+    it 'Fetches Alert' do
+      body = {
+        'id' => 1,
+        'name' => 'Alert 1',
+        'collection_position' => 1,
+        'collection_id' => 1,
+        'alert_condition' => 'rows',
+        'alert_first_only' => false,
+        'archived' => false,
+        'can_write' => true
+      }
+
+      stub_request(:get, "#{host}/api/alert/1?id=1")
+        .to_return(status: 200, body: body.to_json)
+
+      begin
+        response_json = client.alert(id: 1)
+        alert = JSON.parse(response_json)
+
+        expect(alert['name']).to eq('Alert 1')
+      rescue StandardError
+        expect(WebMock).to have_requested(:put, "#{host}/api/alert/1?id=1")
+      end
+    end
   end
 end
