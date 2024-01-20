@@ -50,7 +50,7 @@ RSpec.describe Metabase::Endpoint::Alert do
           headers: {
             'Accept' => '*/*',
             'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-            'User-Agent' => 'MetabaseRuby/0.5.0 (ruby3.2.2)',
+            'User-Agent' => 'MetabaseRuby/0.5.0 (ruby3.0.2)',
             'X-Metabase-Session' => 'bca8d83e-7d37-4670-81b6-560ac452773e'
           }
         )
