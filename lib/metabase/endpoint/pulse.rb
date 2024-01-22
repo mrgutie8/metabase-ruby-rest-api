@@ -21,6 +21,15 @@ module Metabase
         get("/api/pulse/preview_card_info/#{params[:id]}", **params)
       end
 
+      # Get form input
+      #
+      # @param params [Hash] Query string
+      # @return [Array<Hash>] Parsed response JSON
+      # @see https://www.metabase.com/docs/latest/api/pulse#get-apipulseform_input
+      def form_input(**params)
+        get('/api/pulse/form_input', **params)
+      end
+      
       # Fetch preview card png
       #
       # @param params [Hash] Query string
