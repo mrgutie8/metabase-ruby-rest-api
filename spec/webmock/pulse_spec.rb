@@ -141,20 +141,18 @@ RSpec.describe Metabase::Endpoint::Pulse do
       stub_request(:get, "#{host}/api/pulse/form_input")
         .to_return(status: 200, body: 'OK')
 
-      expect(client.form_input).to have_requested(:get, "#{host}/api/pulse/form_input");
+      expect(client.form_input).to have_requested(:get, "#{host}/api/pulse/form_input")
     end
     
     ##############################################################################################################################
     #PUT Pulse Update Test
     ##############################################################################################################################
     it 'Updates a Pulse with id' do
+      stub_request(:put, "http://localhost:3030/api/pulse/1").
+       with(body: "{\"id\":1,\"name\":\"Update pulse test\"}")
+       .to_return(status: 200, body: "OK", headers: {})
 
-        stub_request(:put, "http://localhost:3030/api/pulse/1").
-         with(body: "{\"id\":1,\"name\":\"Update pulse test\"}")
-         .to_return(status: 200, body: "OK", headers: {})
-      
-        expect(client.update_pulse(id: 1, name: "Update pulse test")).to eq('OK')
-      end
+      expect(client.update_pulse(id: 1, name: "Update pulse test")).to eq('OK')
     end
   end
 end
