@@ -11,6 +11,15 @@ module Metabase
       def pulses(**params)
         get('/api/pulse', **params)
       end
+      
+      # Fetch preview card info
+      #
+      # @param params [Hash] Query string
+      # @return [Array<Hash>] Parsed response JSON
+      # @see https://www.metabase.com/docs/latest/api/pulse#get-apipulsepreview_card_infoid
+      def preview_card_info(**params)
+        get("/api/pulse/preview_card_info/#{params[:id]}", **params)
+      end
 
       # Fetch preview card png
       #
