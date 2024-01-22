@@ -107,6 +107,7 @@ RSpec.describe Metabase::Endpoint::Alert do
       rescue StandardError
         expect(WebMock).to have_requested(:post, "#{host}/api/alert")
       end
+    end
 
     it 'Fetches Questions' do
       body = [
@@ -139,6 +140,7 @@ RSpec.describe Metabase::Endpoint::Alert do
       rescue StandardError
         expect(WebMock).to have_requested(:put, "#{host}/api/alert/question/1?id=1")
       end
+    end
 
     it 'Fetches Alert' do
       body = {

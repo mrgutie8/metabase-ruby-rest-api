@@ -130,6 +130,7 @@ RSpec.describe Metabase::Endpoint::Pulse do
         .to_return(status: 200, body: 'OK')
 
       expect(client.preview_card_info(id: 1)).to have_requested(:get, "#{host}/api/pulse/preview_card_info/1?id=1")
+    end
     
     it 'Get PNG rendering of a Card with id' do
       stub_request(:get, "#{host}/api/pulse/preview_card_png/1?id=1")
@@ -149,6 +150,6 @@ RSpec.describe Metabase::Endpoint::Pulse do
       
         expect(client.update_pulse(id: 1, name: "Update pulse test")).to eq('OK')
   
-      end
+    end
   end
 end
