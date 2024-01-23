@@ -103,11 +103,11 @@ RSpec.describe Metabase::Endpoint::Util do
     end
 
     it 'Creates pulse' do
-      stub_request(:post, "http://localhost:3030/api/pulse")
-        .to_return(status: 200, body: "OK")
+      stub_request(:post, "http://localhost:3030/api/pulse").
+      with(body: "{\"name\":\"Create pulse test\"}")
+        .to_return(status: 200, body: "OK", headers: {})
       
-      expect(client.create_pulse).to have_requested(:post, "#{host}/api/pulse")
-
+      expect(client.create_pulse(name: "Create pulse test")).to eq('OK')
     end
     
     ##############################################################################################################################
@@ -142,11 +142,7 @@ RSpec.describe Metabase::Endpoint::Util do
          with(body: "{\"id\":1,\"name\":\"Update pulse test\"}")
          .to_return(status: 200, body: "OK", headers: {})
 
-  
-  
         expect(client.update_pulse(id: 1, name: "Update pulse test")).to eq('OK')
-  
       end
-
   end
 end

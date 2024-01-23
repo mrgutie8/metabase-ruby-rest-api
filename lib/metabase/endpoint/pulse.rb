@@ -16,7 +16,7 @@ module Metabase
       #
       # @param params [Hash] Query string
       # @return [Array<Hash>] Parsed response JSON
-      # @see https://github.com/metabase/metabase/blob/master/docs/api-documentation.md#get-apipulse
+      # @see https://github.com/metabase/metabase/blob/master/docs/api/pulse.md#post-apipulse
       def create_pulse(**params)
         post('/api/pulse', **params)
       end
