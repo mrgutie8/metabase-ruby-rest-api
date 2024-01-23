@@ -21,6 +21,15 @@ module Metabase
         get("/api/pulse/preview_card_info/#{params[:id]}", **params)
       end
 
+      # Create a new Pulse.
+      #
+      # @param params [Hash] Query string
+      # @return [Array<Hash>] Parsed response JSON
+      # @see https://github.com/metabase/metabase/blob/master/docs/api/pulse.md#post-apipulse
+      def create_pulse(**params)
+        post('/api/pulse', **params)
+      end 
+      
       # Get form input
       #
       # @param params [Hash] Query string
