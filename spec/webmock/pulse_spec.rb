@@ -9,7 +9,6 @@ RSpec.describe Metabase::Endpoint::Pulse do
 
   context 'success' do
     it 'Fetches all dashboard subscriptions' do
-
       stub_request(:get, "#{host}/api/pulse")
         .to_return(status: 200, body:
           '[
@@ -80,11 +79,24 @@ RSpec.describe Metabase::Endpoint::Pulse do
           }
       ]')
 
-
       pulse_json = client.pulses
       pulses = JSON.parse(pulse_json)
 
       expect(pulses).to be_kind_of(Array)
+    end
+
+    it 'Fetches Pulse with ID' do
+      stub_request(:get, 'http://localhost:3030/api/pulse/1')
+        .to_return(status: 200, body: '', headers: {})
+
+      begin
+        pulse_1_json = client.pulse(id: 1)
+        pulse = JSON.parse(pulse_1_json)
+
+        expect(pulse).to be_kind_of(Hash)
+      rescue StandardError
+        expect(WebMock).to have_requested(:get, 'http://localhost:3030/api/pulse/1')
+      end
     end
     
     ####################################################################################################################
