@@ -98,6 +98,18 @@ RSpec.describe Metabase::Endpoint::Pulse do
         expect(WebMock).to have_requested(:get, 'http://localhost:3030/api/pulse/1')
       end
     end
+
+    it 'fetches HTML Rendering of a Card with id' do
+      stub_request(:get, "http://localhost:3030/api/pulse/preview_card/1?id=1").
+         to_return(status: 200, body: "", headers: {})
+
+      begin
+        pulse_html = client.pulse_preview_card(id: 1)
+        expect(pulse_html).to be_kind_of(String)
+      rescue StandardError
+        expect(WebMock).to have_requested(:get, "#{host}/api/pulse/preview_card/#{id}}")
+      end
+    end
     
     ####################################################################################################################
     # pulse delete_subscription() test
