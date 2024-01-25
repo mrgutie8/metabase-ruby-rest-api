@@ -19,6 +19,7 @@ module Metabase
       # @see https://github.com/metabase/metabase/blob/master/docs/api/pulse.md#get-apipulseid
       def pulse(**params)
         get("/api/pulse/#{params[:id]}")
+      end
       
       # Fetch preview card info
       #
